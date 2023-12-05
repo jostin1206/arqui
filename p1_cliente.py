@@ -1,22 +1,25 @@
 import socket
 
-def client():
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect(("localhost",12345))
+host = '127.0.0.1'
+port = 12345
 
-    while True:
 
-        message = input("Ingrese el nombre del electrodoméstico: ")
+def resultado_factorial(n):
 
-        ##enviamos el mensaje al servidor
-        s.sendall(message.encode())
-        data = s.recv(1024)
+    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-        ## respuesta del servidor data.decodeR()
-        if data.decode() == '1':
-            print('Producto en stock. Pedido procesado.')
-        else:
-            print('Producto agotado. Pedido no procesado.')
+    # Conectate al servidor
+    client_socket.connect((host, port))
+
+    client_socket.send(f'{n}'.encode())
+
+    rs = client_socket.recv(1024) ##recibe datos del servidor
+
+    print(f"El factorial de {n} es {rs.decode()}")
+
 
 if __name__ == "__main__":
-    client()    
+
+    n = int(input("Numero: "))
+    resultado_factorial(n)
+
