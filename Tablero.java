@@ -1,45 +1,66 @@
+import java.util.Scanner;
+
 public class Tablero {
-    public Casilla[][] casillas;
-    public int intentosRestantes;
+    private int numFilas;
+    private int numColumnas;
 
-    public int filas;
-    public int columnas;
+   // public Tablero(int numFilas, int numColumnas) {
 
-    public Tablero(int filas, int columnas, int intentosRestantes) {
-        this.filas = filas;
-        this.columnas = columnas;
-        casillas = new Casilla[filas][columnas];
-        for (int i = 0; i < filas; i++){
-            for (int j = 0; j < columnas; j++){
-                casillas[i][j] = new Casilla();
-            }
-        }
+     //   this.numFilas = numFilas;
+       // this.numColumnas = numColumnas;
 
-        this.intentosRestantes = intentosRestantes;
+    //}
+
+    public int getNumFilas() {
+        return numFilas;
     }
 
-    public void mostrarTablero() {
-        for (int i = 0; i < filas; i++){
-            for (int j = 0; j < columnas; j++){
-                casillas[i][j].mostrar();
+    public void setNumFilas(int numFilas) {
+        this.numFilas = numFilas;
+    }
+
+    public int getNumColumnas() {
+        return numColumnas;
+    }
+
+    public void setNumColumnas(int numColumnas) {
+        this.numColumnas = numColumnas;
+    }
+
+    public void mostrarTablero(int numFilas,int numColumnas){
+
+        System.out.println("Estado inicial de la mina");
+        String [][] matriz = new String[numFilas][numColumnas];
+
+        for(int i=0;i<numFilas;i++){
+
+            for(int j=0;j<numColumnas;j++){
+
+                matriz[i][j] = "ℹ";
+
             }
-            System.out.println("");
+        }
+        for(int i=0;i<numFilas;i++){
+            for(int j=0;j<numColumnas;j++){
+                System.out.print(matriz[i][j]+"");
+            }
+            System.out.println();
         }
     }
 
-    public boolean ganoJuego(int bombas){
-        int cont = 0;
-        int total = filas*columnas - bombas;
-        for(int i = 0; i < filas; i++){
-            for(int j = 0; j < columnas; j++){
-                if(casillas[i][j].esRevelado()) cont++;
-            }
+    public void mostrarBombas(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese la cantidad de bombas a colocar: ");
+        int cantBombas = Integer.parseInt(scanner.nextLine());
+        System.out.print("Ingrese las coordenadas de las bombas: ");
+        for(int k=1;k<=cantBombas;k++){
+            int x = Integer.parseInt(scanner.nextLine());
+            int y = Integer.parseInt(scanner.nextLine());
+
+            System.out.print("("+ x + "," + y + ")");
         }
-        if (cont >= total) return true;
-        else return false;
 
 
     }
 
 }
-
